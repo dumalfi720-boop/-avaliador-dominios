@@ -1,11 +1,11 @@
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliador Profissional de Domínios</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Professional Domain Evaluator</title>
+<script data-notranslate="True" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script data-notranslate="True" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style data-notranslate="True">
         * {
             margin: 0;
             padding: 0;
@@ -498,161 +498,124 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🌐 Avaliador Profissional de Domínios</h1>
-            <p>Sistema completo de análise e valorização de domínios web</p>
-        </div>
-
-        <div class="tabs">
-            <button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
-            <button class="tab" onclick="switchTab('avaliar')">⚡ Nova Avaliação</button>
-            <button class="tab" onclick="switchTab('comparar')">🔄 Comparar</button>
-            <button class="tab" onclick="switchTab('historico')">📜 Histórico</button>
-            <button class="tab" onclick="switchTab('configuracoes')">⚙️ Configurações</button>
-        </div>
-
-        <!-- DASHBOARD -->
-        <div id="dashboard" class="tab-content active">
-            <h2 style="margin-bottom: 30px; color: var(--gray-800);">Visão Geral</h2>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Total Avaliado</div>
-                    <div class="stat-value" id="totalAvaliacoes">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Pontuação Média</div>
-                    <div class="stat-value" id="pontuacaoMedia">0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Valor Médio</div>
-                    <div class="stat-value" id="valorMedio">R$ 0</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Melhor Avaliação</div>
-                    <div class="stat-value" id="melhorAvaliacao">0</div>
-                </div>
-            </div>
-
-            <div class="chart-container">
-                <h3 style="margin-bottom: 20px;">Distribuição de Pontuações</h3>
-                <canvas id="dashboardChart"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h3 style="margin-bottom: 20px;">Últimas Avaliações</h3>
-                <div id="ultimasAvaliacoes"></div>
-            </div>
-        </div>
-
-        <!-- NOVA AVALIAÇÃO -->
-        <div id="avaliar" class="tab-content">
-            <h2 style="margin-bottom: 30px; color: var(--gray-800);">Nova Avaliação de Domínio</h2>
-
-            <div class="form-group">
-                <label>Nome do Domínio *</label>
-                <input type="text" id="nomeDominio" placeholder="ex: meusite.com.br" />
-            </div>
-
-            <div class="form-group">
-                <label>Extensão</label>
-                <select id="extensao">
-                    <option value=".com">.com</option>
-                    <option value=".com.br">.com.br</option>
-                    <option value=".net">.net</option>
-                    <option value=".org">.org</option>
-                    <option value=".io">.io</option>
-                    <option value=".app">.app</option>
-                    <option value=".tech">.tech</option>
-                    <option value=".store">.store</option>
-                </select>
-            </div>
-
-            <h3 style="margin: 30px 0 20px;">Critérios de Avaliação</h3>
-
-            <div class="criteria-grid" id="criteriosGrid"></div>
-
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <button class="btn btn-primary" onclick="calcularAvaliacao()">
-                    🚀 Calcular Avaliação
-                </button>
-                <button class="btn btn-secondary" onclick="resetarFormulario()">
-                    🔄 Limpar
-                </button>
-            </div>
-
-            <div id="resultadoAvaliacao"></div>
-        </div>
-
-        <!-- COMPARAR DOMÍNIOS -->
-        <div id="comparar" class="tab-content">
-            <h2 style="margin-bottom: 30px; color: var(--gray-800);">Comparar Domínios</h2>
-
-            <div class="alert alert-warning">
-                💡 Selecione de 2 a 3 domínios do seu histórico para comparar
-            </div>
-
-            <div id="selecaoComparacao"></div>
-
-            <button class="btn btn-primary" onclick="realizarComparacao()" style="margin: 20px 0;">
-                🔄 Comparar Selecionados
-            </button>
-
-            <div id="resultadoComparacao"></div>
-        </div>
-
-        <!-- HISTÓRICO -->
-        <div id="historico" class="tab-content">
-            <h2 style="margin-bottom: 30px; color: var(--gray-800);">Histórico de Avaliações</h2>
-
-            <div class="filter-bar">
-                <input type="text" id="filtroNome" placeholder="🔍 Buscar por nome..." onkeyup="filtrarHistorico()" />
-                <select id="filtroExtensao" onchange="filtrarHistorico()">
-                    <option value="">Todas as extensões</option>
-                    <option value=".com">.com</option>
-                    <option value=".com.br">.com.br</option>
-                    <option value=".net">.net</option>
-                    <option value=".org">.org</option>
-                </select>
-                <select id="filtroPontuacao" onchange="filtrarHistorico()">
-                    <option value="">Todas pontuações</option>
-                    <option value="excelente">Excelente (90-100)</option>
-                    <option value="muito-bom">Muito Bom (80-89)</option>
-                    <option value="bom">Bom (70-79)</option>
-                    <option value="regular">Regular (60-69)</option>
-                    <option value="baixo">Abaixo de 60</option>
-                </select>
-            </div>
-
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button class="btn btn-success" onclick="exportarCSV()">📥 Exportar CSV</button>
-                <button class="btn btn-danger" onclick="limparHistorico()">🗑️ Limpar Histórico</button>
-            </div>
-
-            <div id="listaHistorico"></div>
-        </div>
-
-        <!-- CONFIGURAÇÕES -->
-        <div id="configuracoes" class="tab-content">
-            <h2 style="margin-bottom: 30px; color: var(--gray-800);">Configurações do Sistema</h2>
-
-            <div class="alert alert-warning">
-                ⚠️ Alterações nos pesos afetam o cálculo das próximas avaliações
-            </div>
-
-            <h3 style="margin: 30px 0 20px;">Pesos dos Critérios</h3>
-
-            <div class="weight-config" id="pesosConfig"></div>
-
-            <div style="margin-top: 30px; display: flex; gap: 15px;">
-                <button class="btn btn-primary" onclick="salvarConfiguracoes()">💾 Salvar Configurações</button>
-                <button class="btn btn-secondary" onclick="resetarPesos()">🔄 Restaurar Padrão</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
+<div class="container">
+<div class="header">
+<h1>🌐 Professional Domain Evaluator</h1>
+<p>Complete web domain analysis and valuation system</p>
+</div>
+<div class="tabs">
+<button class="tab active" onclick="switchTab('dashboard')">📊 Dashboard</button>
+<button class="tab" onclick="switchTab('avaliar')">⚡ New Assessment</button>
+<button class="tab" onclick="switchTab('comparar')">🔄 Compare</button>
+<button class="tab" onclick="switchTab('historico')">📜 History</button>
+<button class="tab" onclick="switchTab('configuracoes')">⚙️ Settings</button>
+</div>
+DASHBOARD
+<div class="tab-content active" id="dashboard">
+<h2 style="margin-bottom: 30px; color: var(--gray-800);">Overview</h2>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-label">Total Evaluated</div>
+<div class="stat-value" id="totalAvaliacoes">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Average Score</div>
+<div class="stat-value" id="pontuacaoMedia">0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Average Value</div>
+<div class="stat-value" id="valorMedio">R$0</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Best Rating</div>
+<div class="stat-value" id="melhorAvaliacao">0</div>
+</div>
+</div>
+<div class="chart-container">
+<h3 style="margin-bottom: 20px;">Score Distribution</h3>
+<canvas id="dashboardChart"></canvas>
+</div>
+<div class="chart-container">
+<h3 style="margin-bottom: 20px;">Latest Reviews</h3>
+<div id="ultimasAvaliacoes"></div>
+</div>
+</div>
+NEW EVALUATION
+<div class="tab-content" id="avaliar">
+<h2 style="margin-bottom: 30px; color: var(--gray-800);">New Domain Assessment</h2>
+<div class="form-group">
+<label>Domain Name *</label>
+<input id="nomeDominio" placeholder="ex: meusite.com.br" type="text"/>
+</div>
+<div class="form-group">
+<label>Extension</label>
+<select id="extensao">
+<option value=".com">.with</option>
+<option value=".com.br">.com.br</option>
+<option value=".net">.net</option>
+<option value=".org">.org</option>
+<option value=".io">.io</option>
+<option value=".app">.app</option>
+<option value=".tech">.tech</option>
+<option value=".store">.store</option>
+</select>
+</div>
+<h3 style="margin: 30px 0 20px;">Assessment Criteria</h3>
+<div class="criteria-grid" id="criteriosGrid"></div>
+<div style="margin-top: 30px; display: flex; gap: 15px;">
+<button class="btn btn-primary" onclick="calcularAvaliacao()">🚀 Calculate Valuation</button>
+<button class="btn btn-secondary" onclick="resetarFormulario()">🔄 Clear</button>
+</div>
+<div id="resultadoAvaliacao"></div>
+</div>
+COMPARE DOMAINS
+<div class="tab-content" id="comparar">
+<h2 style="margin-bottom: 30px; color: var(--gray-800);">Compare Domains</h2>
+<div class="alert alert-warning">💡 Select 2-3 domains from your history to compare</div>
+<div id="selecaoComparacao"></div>
+<button class="btn btn-primary" onclick="realizarComparacao()" style="margin: 20px 0;">🔄 Compare Selected</button>
+<div id="resultadoComparacao"></div>
+</div>
+HISTORY
+<div class="tab-content" id="historico">
+<h2 style="margin-bottom: 30px; color: var(--gray-800);">Review History</h2>
+<div class="filter-bar">
+<input id="filtroNome" onkeyup="filtrarHistorico()" placeholder="🔍 Buscar por nome..." type="text"/>
+<select id="filtroExtensao" onchange="filtrarHistorico()">
+<option value="">All extensions</option>
+<option value=".com">.with</option>
+<option value=".com.br">.com.br</option>
+<option value=".net">.net</option>
+<option value=".org">.org</option>
+</select>
+<select id="filtroPontuacao" onchange="filtrarHistorico()">
+<option value="">All scores</option>
+<option value="excelente">Excellent (90-100)</option>
+<option value="muito-bom">Very Good (80-89)</option>
+<option value="bom">Good (70-79)</option>
+<option value="regular">Regular (60-69)</option>
+<option value="baixo">Below 60</option>
+</select>
+</div>
+<div style="display: flex; gap: 10px; margin-bottom: 20px;">
+<button class="btn btn-success" onclick="exportarCSV()">📥 Export CSV</button>
+<button class="btn btn-danger" onclick="limparHistorico()">🗑️ Clear History</button>
+</div>
+<div id="listaHistorico"></div>
+</div>
+SETTINGS
+<div class="tab-content" id="configuracoes">
+<h2 style="margin-bottom: 30px; color: var(--gray-800);">System Settings</h2>
+<div class="alert alert-warning">⚠️ Changes in weights affect the calculation of upcoming assessments</div>
+<h3 style="margin: 30px 0 20px;">Criteria Weights</h3>
+<div class="weight-config" id="pesosConfig"></div>
+<div style="margin-top: 30px; display: flex; gap: 15px;">
+<button class="btn btn-primary" onclick="salvarConfiguracoes()">💾 Save Settings</button>
+<button class="btn btn-secondary" onclick="resetarPesos()">🔄 Restore Default</button>
+</div>
+</div>
+</div>
+<script data-notranslate="True">
         // Configurações e dados globais
         let criterios = [
             { id: 'tamanho', nome: 'Tamanho', peso: 15, descricao: 'Domínios curtos são mais valiosos' },
@@ -1333,5 +1296,4 @@
         }
     </script>
 </body>
-</html>
-Copie este código completo, cole no seu arquivo index.html e me confirme quando estiver pronto para os próximos passos (README e publicação no GitHub)! 🚀
+</html>Copy this complete code, paste it into your index.html file and let me know when you're ready for the next steps (README and publishing on GitHub)! 🚀
